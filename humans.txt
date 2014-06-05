@@ -2,12 +2,7 @@
 # The humans responsible & technology colophon
 
 # TEAM
-
-    <name> -- <role> -- <twitter>
-
-# THANKS
-
-    <name>
+    Haven Agency -- http://havenagency.com/
 
 # TECHNOLOGY COLOPHON
 
