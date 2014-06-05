@@ -1,17 +1,18 @@
 {
-	"name": "Static Boilerplate",
-	"version": "0.1",
-	"dependencies": {
-		"jquery": "^2.1.1",
-		"modernizr": "^2.8.2"
-	},
-	"install": {
-		"path": {
-			"css": "css/vendor",
-			"js" : "js/vendor"
-		},
-		"sources": {
-			"modernizr": "bower_components/modernizr/modernizr.js"
-		}
-	}
+  "name": "Static Boilerplate",
+  "version": "0.1",
+  "dependencies": {
+    "jquery": "^2.1.1",
+    "modernizr": "^2.8.2",
+    "normalize.css": "~3.0.1"
+  },
+  "install": {
+    "path": {
+      "css": "css/vendor",
+      "js": "js/vendor"
+    },
+    "sources": {
+      "modernizr": "bower_components/modernizr/modernizr.js"
+    }
+  }
 }
