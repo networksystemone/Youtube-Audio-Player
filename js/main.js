@@ -6,9 +6,12 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 var loadingClasses = 'fa-spin fa-spinner loading',
 	playClasses = 'fa-play play',
-	pauseClasses = 'fa-pause pause';
+	pauseClasses = 'fa-pause pause',
+	muteClasses = 'fa-volume-up mute',
+	unmuteClasses = 'fa-volume-off unmute';
 
 function setEventHooks($player, yt) {
+	// Play
 	$('.loading').removeClass(loadingClasses)
 		.addClass(playClasses);
 	$player.on('click', '.play', function() {
@@ -18,6 +21,7 @@ function setEventHooks($player, yt) {
 			.addClass(pauseClasses);
 	});
 
+	// Pause
 	$player.on('click', '.pause', function() {
 		yt.pauseVideo();
 
@@ -25,6 +29,7 @@ function setEventHooks($player, yt) {
 			.addClass(playClasses);
 	});
 
+	// Seek
 	var $seek_slider = $player.find('.seek-slider'),
 		seek_lock = false;
 	$seek_slider.prop('max', yt.getDuration());
@@ -42,6 +47,24 @@ function setEventHooks($player, yt) {
 			seek_lock = false;
 		}, 10);
 	});
+
+	// Volume
+	$player.on('click', '.mute', function() {
+		yt.mute();
+
+		$(this).removeClass(muteClasses)
+			.addClass(unmuteClasses);
+	});
+
+	$player.on('click', '.unmute', function() {
+		yt.unMute();
+
+		$(this).removeClass(unmuteClasses)
+			.addClass(muteClasses);
+	});
+
+	if(yt.isMuted) $('.mute').click()
+	else $('.mute').addClass(muteClasses);
 }
 function onYouTubeIframeAPIReady() {
 	$('.player').each(function() {
