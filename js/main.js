@@ -24,6 +24,24 @@ function setEventHooks($player, yt) {
 		$(this).removeClass(pauseClasses)
 			.addClass(playClasses);
 	});
+
+	var $seek_slider = $player.find('.seek-slider'),
+		seek_lock = false;
+	$seek_slider.prop('max', yt.getDuration());
+	(function updateSeek() {
+		if(! seek_lock && 1 === yt.getPlayerState()) $seek_slider.val(yt.getCurrentTime());
+
+		requestAnimationFrame(updateSeek);
+	}());
+
+	$seek_slider.on('input', function() {
+		yt.seekTo(this.value);
+
+		clearTimeout(seek_lock);
+		seek_lock = setTimeout(function() {
+			seek_lock = false;
+		}, 10);
+	});
 }
 function onYouTubeIframeAPIReady() {
 	$('.player').each(function() {
