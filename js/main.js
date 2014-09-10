@@ -49,6 +49,7 @@ function setEventHooks($player, yt) {
 	});
 
 	// Volume
+	var $volume_slider = $player.find('.volume-slider');
 	$player.on('click', '.mute', function() {
 		yt.mute();
 
@@ -65,6 +66,10 @@ function setEventHooks($player, yt) {
 
 	if(yt.isMuted) $('.mute').click()
 	else $('.mute').addClass(muteClasses);
+
+	$volume_slider.on('input', function() {
+		yt.setVolume(this.value);
+	}).val(yt.getVolume());
 }
 function onYouTubeIframeAPIReady() {
 	$('.player').each(function() {
