@@ -13,7 +13,10 @@ var loadingClasses = 'fa-spin fa-spinner loading',
 function setEventHooks($player, yt) {
 	// Play
 	$('.loading').removeClass(loadingClasses)
-		.addClass(playClasses);
+		.addClass(pauseClasses);
+
+	yt.playVideo();
+
 	$player.on('click', '.play', function() {
 		yt.playVideo();
 
