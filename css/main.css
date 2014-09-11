@@ -110,10 +110,40 @@ textarea {
         width: 50px;
         float: left;
         margin: 0 1em 0 0;
+        border: 1px solid #1e5799;
+        color: #fff;
+        text-shadow:0 1px 0 #1e5799;
+        font-size: 18px;
+        line-height: 50px;
+        padding: 0;
+        box-shadow: 0 2px 2px rgba(0,0,0,.2);
+        background: #7db9e8; /* Old browsers */
+        background: -moz-linear-gradient(top,  #7db9e8 0%, #1e5799 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7db9e8), color-stop(100%,#1e5799)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  #7db9e8 0%,#1e5799 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  #7db9e8 0%,#1e5799 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  #7db9e8 0%,#1e5799 100%); /* IE10+ */
+        background: linear-gradient(to bottom,  #7db9e8 0%,#1e5799 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7db9e8', endColorstr='#1e5799',GradientType=0 ); /* IE6-9 */
+    }
+
+    .btn:hover, .btn:active, .btn:focus {
+        color: #fff;
+        outline: none;
+        border-color: #be7502;
+        text-shadow:0 1px 0 #be7502;
+        background: #ffb564; /* Old browsers */
+        background: -moz-linear-gradient(top,  #ffb564 0%, #b97200 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffb564), color-stop(100%,#b97200)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  #ffb564 0%,#b97200 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  #ffb564 0%,#b97200 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  #ffb564 0%,#b97200 100%); /* IE10+ */
+        background: linear-gradient(to bottom,  #ffb564 0%,#b97200 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb564', endColorstr='#b97200',GradientType=0 ); /* IE6-9 */
     }
 
     .track-title {
-        margin: 0 0 10px;
+        margin: 5px 0;
     }
 
     input[type='range'] {
