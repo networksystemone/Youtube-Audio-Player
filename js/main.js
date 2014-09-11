@@ -10,7 +10,7 @@ var loadingClasses = 'fa-spin fa-spinner loading',
 	muteClasses = 'fa-volume-up mute',
 	unmuteClasses = 'fa-volume-off unmute';
 
-function setEventHooks($player, yt) {
+function initPlayer($player, yt) {
 	// Play
 	$('.loading').removeClass(loadingClasses)
 		.addClass(pauseClasses);
@@ -35,7 +35,6 @@ function setEventHooks($player, yt) {
 	// Seek
 	var $seek_slider = $player.find('.seek-slider'),
 		seek_lock = false;
-	$seek_slider.prop('max', yt.getDuration());
 	(function updateSeek() {
 		if(! seek_lock && 1 === yt.getPlayerState()) $seek_slider.val(yt.getCurrentTime());
 
@@ -72,6 +71,16 @@ function setEventHooks($player, yt) {
 	$volume_slider.on('input', function() {
 		yt.setVolume(this.value);
 	}).val(yt.getVolume());
+
+	// Tracks
+	$player.on('trackchange', function(event, id) {
+		yt.loadVideoById(id);
+
+		$seek_slider.prop('max', yt.getDuration()).val(0);
+
+		$('.track').removeClass('active');
+		$('.track[href="#'+id+'"]').addClass('active');
+	}).trigger('trackchange', $player.data('src'));
 }
 function onYouTubeIframeAPIReady() {
 	$('.player').each(function() {
@@ -86,10 +95,15 @@ function onYouTubeIframeAPIReady() {
 		$this.append(source);
 
 		player = new YT.Player(source.id, {
-			videoId: this.getAttribute('data-src'),
 			events: {
-				onReady: function() { setEventHooks($this, player) }
+				onReady: function() { initPlayer($this, player) }
 			}
 		});
 	});
 }
+
+$('#playlist').on('click', '.track', function() {
+	$('.player').trigger('trackchange', this.hash.slice(1));
+
+	return false;
+});
