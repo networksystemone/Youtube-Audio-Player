@@ -13,7 +13,10 @@ var loadingClasses = 'fa-spin fa-spinner loading',
 function setEventHooks($player, yt) {
 	// Play
 	$('.loading').removeClass(loadingClasses)
-		.addClass(playClasses);
+		.addClass(pauseClasses);
+
+	yt.playVideo();
+
 	$player.on('click', '.play', function() {
 		yt.playVideo();
 
@@ -64,8 +67,7 @@ function setEventHooks($player, yt) {
 			.addClass(muteClasses);
 	});
 
-	if(yt.isMuted) $('.mute').click()
-	else $('.mute').addClass(muteClasses);
+	if(yt.isMuted()) yt.unMute();
 
 	$volume_slider.on('input', function() {
 		yt.setVolume(this.value);
