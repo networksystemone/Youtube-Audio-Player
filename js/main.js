@@ -67,8 +67,7 @@ function setEventHooks($player, yt) {
 			.addClass(muteClasses);
 	});
 
-	if(yt.isMuted()) $('.mute').click()
-	else $('.mute').addClass(muteClasses);
+	if(yt.isMuted()) yt.unMute();
 
 	$volume_slider.on('input', function() {
 		yt.setVolume(this.value);
