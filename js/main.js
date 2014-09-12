@@ -40,14 +40,16 @@ function initPlayer($player, yt) {
 	(function updateSeek() {
 		if(! seek_lock && 1 === yt.getPlayerState())
 		{
-			var seak_time, seek_percent, $played_bar;
+			var seak_time, seek_percent, $played_bar, $buffered_bar;
 
 			seek_time = yt.getCurrentTime();
 			seek_percent = seek_time / yt.getDuration() * 100;
 			$played_bar = $('.progress-bar-played');
+			$buffered_bar = $('.progress-bar-buffer');
 
 			$seek_slider.val(seek_time);
 			$played_bar.width(seek_percent+'%');
+			$buffered_bar.width((yt.getVideoLoadedFraction() * 100 - seek_percent)+'%');
 		}
 
 		requestAnimationFrame(updateSeek);
