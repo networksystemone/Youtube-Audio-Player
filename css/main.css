@@ -110,10 +110,34 @@ textarea {
         width: 50px;
         float: left;
         margin: 0 1em 0 0;
+        border: none;
+        color: #fff;
+        font-size: 18px;
+        line-height: 50px;
+        padding: 0;
+    }
+
+    .btn:hover, .btn:active, .btn:focus {
+        color: #fff;
+        outline: none;
     }
 
     .track-title {
-        margin: 0 0 10px;
+        margin: 5px 0;
+    }
+
+    .volume {
+        position: relative;
+        padding: 0 0 0 20px;
+    }
+
+    .btn-volume {
+        position: absolute;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        padding: 0;
+        line-height: 20px;
     }
 
     input[type='range'] {
