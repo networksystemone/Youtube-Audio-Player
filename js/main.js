@@ -43,31 +43,33 @@ function initPlayer($player, yt) {
 	(function updateSeek() {
 		if(! seek_lock && 1 === yt.getPlayerState())
 		{
-			var seek_time, seek_string, seek_percent, $played_bar, $buffered_bar;
+			var $buffered_bar;
 
-			seek_time = yt.getCurrentTime();
-			seek_percent = seek_time / yt.getDuration() * 100;
-			$played_bar = $('.progress-bar-played');
 			$buffered_bar = $('.progress-bar-buffer');
 			loaded_percent = yt.getVideoLoadedFraction() * 100;
-			seek_string = Math.floor(seek_time/60)+':'+('00' + (Math.floor(seek_time) % 60)).slice(-2);
 
-			$seek_slider.val(seek_time);
-			$played_bar.width(seek_percent+'%')
-				.attr('aria-valuenow', seek_time)
-				.find('.sr-only').text('Playing at '+seek_string);
+			$seek_slider.val(yt.getCurrentTime()).trigger('input', true);
+
 			$buffered_bar.width(loaded_percent+'%')
 				.attr('aria-valuenow', loaded_percent * yt.getDuration())
 				.find('.sr-only').text(loaded_percent+'% Loaded');
-
-			$player.find('.current-time').text(seek_string);
 		}
 
 		requestAnimationFrame(updateSeek);
 	}());
 
-	$seek_slider.on('input', function() {
-		yt.seekTo(this.value);
+	$seek_slider.on('input', function(event, internal) {
+		if(!internal) yt.seekTo(this.value);
+
+		seek_percent = this.value / yt.getDuration() * 100;
+		$played_bar = $('.progress-bar-played');
+		seek_string = Math.floor(this.value/60)+':'+('00' + (Math.floor(this.value) % 60)).slice(-2);
+
+		$played_bar.width(seek_percent+'%')
+			.attr('aria-valuenow', this.value)
+			.find('.sr-only').text('Playing at '+seek_string);
+
+			$player.find('.current-time').text(seek_string);
 
 		clearTimeout(seek_lock);
 		seek_lock = setTimeout(function() {
