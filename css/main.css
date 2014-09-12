@@ -116,6 +116,7 @@
                 -webkit-transition: none;
                 -o-transition: none;
                 transition: none;
+                min-width: 0 !important;
             }
             .progress-bar-buffer {
                 background: #ddd;
