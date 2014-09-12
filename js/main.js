@@ -18,10 +18,13 @@ function initPlayer($player, yt) {
 	// Stage changes
 	$player.on('playing', function() {
 		$(this).find('.btn-player i').attr('class', pauseClasses)
+			.find('.sr-only').text('Pause');
 	}).on('paused', function() {
 		$(this).find('.btn-player i').attr('class', playClasses)
+			.find('.sr-only').text('Play');
 	}).on('buffering', function() {
 		$(this).find('.btn-player i').attr('class', loadingClasses)
+			.find('.sr-only').text('Loading...');
 	});
 
 	// Play
