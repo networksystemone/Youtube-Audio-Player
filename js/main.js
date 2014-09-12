@@ -78,7 +78,7 @@ function initPlayer($player, yt) {
 	});
 	$seek_slider.on('change', function(event) {
 		yt.seekTo(this.value);
-		setTimeout(function() { seek_lock = false; }, 10);
+		setTimeout(function() { seek_lock = false; }, 50);
 	});
 
 	// Volume
