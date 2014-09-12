@@ -17,7 +17,7 @@
     border-radius: 5px;
     margin: 0 0 20px;
     border: 1px solid #ddd;
-    padding: 10px 10px 10px 65px;
+    padding: 10px 15px 10px 70px;
 }
 
     /* ===== Track Info ===== */
@@ -90,7 +90,7 @@
     /* ===== Player Default Styles ===== */
     .btn-player {
         position: absolute;
-        left: 10px;
+        left: 14px;
         height: 45px;
         width: 45px;
         border-radius: 50%;
@@ -184,9 +184,10 @@
             background: none;
             border: none;
         }
-            .btn-volume:hover, .btn-volume:focus {
+            .btn-volume:hover, .btn-volume:focus, .btn-volume:active {
                 background: none;
                 color: #428bca;
+                box-shadow: none;
             }
     
 
