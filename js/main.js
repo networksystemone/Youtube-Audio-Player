@@ -94,10 +94,21 @@ function initPlayer($player, yt) {
 	// Tracks
 	$player.on('trackchange', function(event, id) {
 		yt.loadVideoById(id);
+		var $this = $(this);
 
-		$(this).one('playing', function() {
-			$seek_slider.prop('max', yt.getDuration()).val(0);
-			$('.progress-bar-played, .progress-bar-buffer').attr('aria-valuemax', yt.getDuration());
+		$this.one('playing', function() {
+			var videoData, duration;
+			
+			videoData = yt.getVideoData();
+			duration  = yt.getDuration();
+			duration_minutes = Math.floor(duration/60);
+			duration_seconds = duration % 60;
+
+			$this.find('.title').text(videoData.title);
+			$this.find('.duration').text(duration_minutes+':'+duration_seconds);
+
+			$seek_slider.prop('max', duration).val(0);
+			$('.progress-bar-played, .progress-bar-buffer').attr('aria-valuemax', duration);
 		});
 
 		$('.track').removeClass('active');
