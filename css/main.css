@@ -28,6 +28,14 @@
         border-radius: 5px;
     }
 
+        @media (min-width: 768px) {
+
+            .track-length {
+                float: right;
+            }
+
+        }
+
     /* ===== Player Default Styles ===== */
 
     /* Player Ranger input */
@@ -187,3 +195,12 @@
         position: absolute;
         width: 1px;
     }
+
+
+.playlist-track {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+    padding-right: 10px;
+}
