@@ -55,6 +55,11 @@ function initPlayer($player, yt) {
 			$buffered_bar.width(loaded_percent+'%')
 				.attr('aria-valuenow', loaded_percent * yt.getDuration())
 				.find('.sr-only').text(loaded_percent+'% Complete');
+
+			var seek_minutes = Math.floor(seek_time/60);
+			var seek_seconds = Math.floor(seek_time) % 60;
+			console.log(seek_time, seek_minutes, seek_seconds);
+			$player.find('.current-time').text(seek_minutes+':'+(seek_seconds));
 		}
 
 		requestAnimationFrame(updateSeek);
