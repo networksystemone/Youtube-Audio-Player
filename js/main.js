@@ -4,32 +4,34 @@ tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-var loadingClasses = 'fa-spin fa-spinner loading',
-	playClasses = 'fa-play play',
-	pauseClasses = 'fa-pause pause',
-	muteClasses = 'fa-volume-up mute',
-	unmuteClasses = 'fa-volume-off unmute';
+var loadingClasses = 'fa fa-spin fa-spinner loading',
+	playClasses = 'fa fa-play play',
+	pauseClasses = 'fa fa-pause pause',
+	muteClasses = 'fa fa-volume-up mute',
+	unmuteClasses = 'fa fa-volume-off unmute';
+
+$('.btn-player').on('click', function(event) {
+	if(this === event.target) $(this).find('i').click();
+});
 
 function initPlayer($player, yt) {
+	// Stage changes
+	$player.on('playing', function() {
+		$(this).find('.btn-player i').attr('class', pauseClasses)
+	}).on('paused', function() {
+		$(this).find('.btn-player i').attr('class', playClasses)
+	}).on('buffering', function() {
+		$(this).find('.btn-player i').attr('class', loadingClasses)
+	});
+
 	// Play
-	$('.loading').removeClass(loadingClasses)
-		.addClass(pauseClasses);
-
-	yt.playVideo();
-
 	$player.on('click', '.play', function() {
 		yt.playVideo();
-
-		$(this).removeClass(playClasses)
-			.addClass(pauseClasses);
 	});
 
 	// Pause
 	$player.on('click', '.pause', function() {
 		yt.pauseVideo();
-
-		$(this).removeClass(pauseClasses)
-			.addClass(playClasses);
 	});
 
 	// Seek
@@ -96,7 +98,17 @@ function onYouTubeIframeAPIReady() {
 
 		player = new YT.Player(source.id, {
 			events: {
-				onReady: function() { initPlayer($this, player) }
+				onReady: function() { initPlayer($this, player) },
+				onStateChange: function(event) {
+					switch(event.data)
+					{
+					case 0: $this.trigger('ended'); break;
+					case 1: $this.trigger('playing'); break;
+					case 2: $this.trigger('paused'); break;
+					case 3: $this.trigger('buffering'); break;
+					case 5: $this.trigger('cued'); break;
+					}
+				}
 			}
 		});
 	});
