@@ -40,21 +40,21 @@ function initPlayer($player, yt) {
 	(function updateSeek() {
 		if(! seek_lock && 1 === yt.getPlayerState())
 		{
-			var seek_time, seek_percent, $played_bar, $buffered_bar, loaded_delta;
+			var seek_time, seek_percent, $played_bar, $buffered_bar;
 
 			seek_time = yt.getCurrentTime();
 			seek_percent = seek_time / yt.getDuration() * 100;
 			$played_bar = $('.progress-bar-played');
 			$buffered_bar = $('.progress-bar-buffer');
-			loaded_delta = yt.getVideoLoadedFraction() * 100 - seek_percent;
+			loaded_percent = yt.getVideoLoadedFraction() * 100;
 
 			$seek_slider.val(seek_time);
 			$played_bar.width(seek_percent+'%')
 				.attr('aria-valuenow', seek_time)
 				.find('.sr-only').text(seek_percent+'% Complete');
-			$buffered_bar.width(loaded_delta+'%')
-				.attr('aria-valuenow', loaded_delta * yt.getDuration())
-				.find('.sr-only').text(loaded_delta+'% Complete');
+			$buffered_bar.width(loaded_percent+'%')
+				.attr('aria-valuenow', loaded_percent * yt.getDuration())
+				.find('.sr-only').text(loaded_percent+'% Complete');
 		}
 
 		requestAnimationFrame(updateSeek);
@@ -94,10 +94,21 @@ function initPlayer($player, yt) {
 	// Tracks
 	$player.on('trackchange', function(event, id) {
 		yt.loadVideoById(id);
+		var $this = $(this);
 
-		$(this).one('playing', function() {
-			$seek_slider.prop('max', yt.getDuration()).val(0);
-			$('.progress-bar-played, .progress-bar-buffer').attr('aria-valuemax', yt.getDuration());
+		$this.one('playing', function() {
+			var videoData, duration;
+			
+			videoData = yt.getVideoData();
+			duration  = yt.getDuration();
+			duration_minutes = Math.floor(duration/60);
+			duration_seconds = duration % 60;
+
+			$this.find('.title').text(videoData.title);
+			$this.find('.duration').text(duration_minutes+':'+duration_seconds);
+
+			$seek_slider.prop('max', duration).val(0);
+			$('.progress-bar-played, .progress-bar-buffer').attr('aria-valuemax', duration);
 		});
 
 		$('.track').removeClass('active');
