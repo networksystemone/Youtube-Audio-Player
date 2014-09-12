@@ -40,16 +40,21 @@ function initPlayer($player, yt) {
 	(function updateSeek() {
 		if(! seek_lock && 1 === yt.getPlayerState())
 		{
-			var seak_time, seek_percent, $played_bar, $buffered_bar;
+			var seek_time, seek_percent, $played_bar, $buffered_bar, loaded_delta;
 
 			seek_time = yt.getCurrentTime();
 			seek_percent = seek_time / yt.getDuration() * 100;
 			$played_bar = $('.progress-bar-played');
 			$buffered_bar = $('.progress-bar-buffer');
+			loaded_delta = yt.getVideoLoadedFraction() * 100 - seek_percent;
 
 			$seek_slider.val(seek_time);
-			$played_bar.width(seek_percent+'%');
-			$buffered_bar.width((yt.getVideoLoadedFraction() * 100 - seek_percent)+'%');
+			$played_bar.width(seek_percent+'%')
+				.attr('aria-valuenow', seek_time)
+				.find('.sr-only').text(seek_percent+'% Complete');
+			$buffered_bar.width(loaded_delta+'%')
+				.attr('aria-valuenow', loaded_delta * yt.getDuration())
+				.find('.sr-only').text(loaded_delta+'% Complete');
 		}
 
 		requestAnimationFrame(updateSeek);
@@ -92,6 +97,7 @@ function initPlayer($player, yt) {
 
 		$(this).one('playing', function() {
 			$seek_slider.prop('max', yt.getDuration()).val(0);
+			$('.progress-bar-played, .progress-bar-buffer').attr('aria-valuemax', yt.getDuration());
 		});
 
 		$('.track').removeClass('active');
