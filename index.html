@@ -28,7 +28,7 @@
 					
 					<div id="player" class="player" data-src="oUiOylPbfV0">
 
-						<button class="btn btn-player"><i class="fa fa-spin fa-spinner loading"></i><span class="sr-only">Play</span></button>
+						<button class="btn btn-primary btn-player"><i class="fa fa-spin fa-spinner loading"></i><span class="sr-only">Play</span></button>
 
 						<div class="row">
 							<div class="col-sm-12">
@@ -40,10 +40,17 @@
 						<div class="row">
 							<div class="col-sm-12">
 
-								<input type="range" value="0" class="seek-slider" />
-								<span class="fa fa-volume-off mute"></span>
-								<input type="range" value="0" class="volume-slider" />
-
+								<div class="row">
+									<div class="col-sm-9">
+										<input type="range" value="0" class="seek-slider" />								
+									</div>
+									<div class="col-sm-3">
+										<div class="volume">
+											<button class="btn btn-primary btn-volume"><i class="fa fa-volume-off mute"></i></button>
+											<input type="range" value="0" class="volume-slider" />								
+										</div>
+									</div>
+								</div>
 							</div>				
 						</div>
 						
