@@ -8,6 +8,10 @@
 }
 
 
+/* ==========================================================================
+   Player
+   ========================================================================== */
+
 .player {
     position: relative;
     border-radius: 5px;
@@ -16,7 +20,7 @@
     padding: 10px 10px 10px 65px;
 }
 
-    /* Track Info */
+    /* ===== Track Info ===== */
     .track-title {
         margin: 5px 0;
     }
@@ -24,7 +28,9 @@
         border-radius: 5px;
     }
 
-    /* Player Range Slider Defualt */
+    /* ===== Player Default Styles ===== */
+
+    /* Player Ranger input */
     .player-range {
         -webkit-appearance: none;
         border-radius: 4px;
@@ -52,7 +58,7 @@
             outline: none;
         }
 
-        /* Slider Thumb */
+        /* Player Ranger input thumb */
         .player-range::-webkit-slider-thumb {
             -webkit-appearance: none !important;
             border-radius: 20px;
@@ -73,7 +79,7 @@
         }
 
 
-    /* Play Button */
+    /* ===== Player Default Styles ===== */
     .btn-player {
         position: absolute;
         left: 10px;
@@ -84,7 +90,6 @@
         .btn-player:focus, .btn-player:active {
             outline: none;
         }
-
 
 
     /* ===== Progress Bar ===== */
@@ -107,9 +112,17 @@
             box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
         }
 
+            .progress-bar {
+                -webkit-transition: none;
+                -o-transition: none;
+                transition: none;
+            }
             .progress-bar-buffer {
                 background: #ddd;
                 box-shadow: none;
+                -webkit-transition: width .6s ease;
+                -o-transition: width .6s ease;
+                transition: width .6s ease;
             }
 
         /* Progress Range Slider */
@@ -160,8 +173,6 @@
                 background: none;
                 color: #428bca;
             }
-
-
     
 
     /* Youtube Source video */
