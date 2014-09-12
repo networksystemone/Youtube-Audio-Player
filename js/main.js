@@ -71,25 +71,36 @@ function initPlayer($player, yt) {
 
 	// Volume
 	var $volume_slider = $player.find('.volume-slider');
+	var $volume_bar = $player.find('.progress-bar-volume');
 	$player.on('click', '.mute', function() {
 		yt.mute();
 
-		$(this).removeClass(muteClasses)
-			.addClass(unmuteClasses);
+		$(this).attr('class', unmuteClasses);
+		$volume_bar.attr('aria-valuenow', 0)
+			.width(0)
+			.find('.sr-only').text('Muted');
 	});
 
 	$player.on('click', '.unmute', function() {
+		var volume = yt.getVolume();
+
 		yt.unMute();
 
-		$(this).removeClass(unmuteClasses)
-			.addClass(muteClasses);
+		$(this).attr('class', muteClasses);
+		$volume_bar.attr('aria-valuenow', volume)
+			.width(volume+'%')
+			.find('.sr-only', volume+'% volume');
 	});
 
 	if(yt.isMuted()) yt.unMute();
 
 	$volume_slider.on('input', function() {
 		yt.setVolume(this.value);
-	}).val(yt.getVolume());
+
+		$volume_bar.attr('aria-valuenow', this.value)
+			.width(this.value+'%')
+			.find('.sr-only', this.value+'% volume');
+	}).val(yt.getVolume()).trigger('input');
 
 	// Tracks
 	$player.on('trackchange', function(event, id) {
