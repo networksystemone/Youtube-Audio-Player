@@ -88,7 +88,9 @@ function initPlayer($player, yt) {
 	$player.on('trackchange', function(event, id) {
 		yt.loadVideoById(id);
 
-		$seek_slider.prop('max', yt.getDuration()).val(0);
+		$(this).one('playing', function() {
+			$seek_slider.prop('max', yt.getDuration()).val(0);
+		});
 
 		$('.track').removeClass('active');
 		$('.track[href="#'+id+'"]').addClass('active');
