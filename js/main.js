@@ -48,7 +48,7 @@ function initPlayer($player, yt) {
 			$buffered_bar = $('.progress-bar-buffer');
 			loaded_percent = yt.getVideoLoadedFraction() * 100;
 
-			$seek_slider.val(yt.getCurrentTime()).trigger('input', true);
+			if(! seek_lock) $seek_slider.val(yt.getCurrentTime()).trigger('input', true);
 
 			$buffered_bar.width(loaded_percent+'%')
 				.attr('aria-valuenow', loaded_percent * yt.getDuration())
@@ -59,7 +59,11 @@ function initPlayer($player, yt) {
 	}());
 
 	$seek_slider.on('input', function(event, internal) {
-		if(!internal) yt.seekTo(this.value);
+		if(!internal)
+		{
+			yt.seekTo(this.value, false);
+			seek_lock = true;
+		}
 
 		seek_percent = this.value / yt.getDuration() * 100;
 		$played_bar = $('.progress-bar-played');
@@ -71,10 +75,10 @@ function initPlayer($player, yt) {
 
 			$player.find('.current-time').text(seek_string);
 
-		clearTimeout(seek_lock);
-		seek_lock = setTimeout(function() {
-			seek_lock = false;
-		}, 10);
+	});
+	$seek_slider.on('change', function(event) {
+		yt.seekTo(this.value);
+		setTimeout(function() { seek_lock = false; }, 10);
 	});
 
 	// Volume
