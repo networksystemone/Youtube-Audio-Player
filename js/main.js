@@ -123,7 +123,7 @@ function onYouTubeIframeAPIReady() {
 
 		source = document.createElement('div');
 		source.id = 'yt-source-'+ $('.yt-source').length;
-		source.className = 'yt-source visuallyhidden';
+		source.className = 'yt-source invisible';
 
 		$this.append(source);
 
