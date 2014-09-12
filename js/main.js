@@ -57,7 +57,7 @@ function initPlayer($player, yt) {
 				.find('.sr-only').text(loaded_percent+'% Complete');
 
 			var seek_minutes = Math.floor(seek_time/60);
-			var seek_seconds = Math.floor(seek_time) % 60;
+			var seek_seconds = ('00' + (Math.floor(seek_time) % 60)).slice(-2);
 			console.log(seek_time, seek_minutes, seek_seconds);
 			$player.find('.current-time').text(seek_minutes+':'+(seek_seconds));
 		}
@@ -118,7 +118,7 @@ function initPlayer($player, yt) {
 			videoData = yt.getVideoData();
 			duration  = yt.getDuration();
 			duration_minutes = Math.floor(duration/60);
-			duration_seconds = duration % 60;
+			duration_seconds = ('00' + (duration % 60)).slice(-2);
 
 			$this.find('.title').text(videoData.title);
 			$this.find('.duration').text(duration_minutes+':'+duration_seconds);
