@@ -10,7 +10,7 @@ var loadingClasses = 'fa fa-spin fa-spinner loading',
 	muteClasses = 'fa fa-volume-up mute',
 	unmuteClasses = 'fa fa-volume-off unmute';
 
-$('.btn-player').on('click', function(event) {
+$('.btn-player, .btn-volume').on('click', function(event) {
 	if(this === event.target) $(this).find('i').click();
 });
 
