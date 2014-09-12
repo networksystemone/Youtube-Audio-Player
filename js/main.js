@@ -84,6 +84,7 @@ function initPlayer($player, yt) {
 		yt.mute();
 
 		$(this).attr('class', unmuteClasses);
+		$volume_slider.val(0);
 		$volume_bar.attr('aria-valuenow', 0)
 			.width(0)
 			.find('.sr-only').text('Muted');
@@ -94,6 +95,7 @@ function initPlayer($player, yt) {
 
 		yt.unMute();
 
+		$volume_slider.val(volume);
 		$(this).attr('class', muteClasses);
 		$volume_bar.attr('aria-valuenow', volume)
 			.width(volume+'%')
