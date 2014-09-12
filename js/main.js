@@ -38,7 +38,17 @@ function initPlayer($player, yt) {
 	var $seek_slider = $player.find('.seek-slider'),
 		seek_lock = false;
 	(function updateSeek() {
-		if(! seek_lock && 1 === yt.getPlayerState()) $seek_slider.val(yt.getCurrentTime());
+		if(! seek_lock && 1 === yt.getPlayerState())
+		{
+			var seak_time, seek_percent, $played_bar;
+
+			seek_time = yt.getCurrentTime();
+			seek_percent = seek_time / yt.getDuration() * 100;
+			$played_bar = $('.progress-bar-played');
+
+			$seek_slider.val(seek_time);
+			$played_bar.width(seek_percent+'%');
+		}
 
 		requestAnimationFrame(updateSeek);
 	}());
